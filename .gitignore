@@ -1,0 +1,7 @@
+
+*.a
+*.o
+a.out
+msh
+.DS_Store
+

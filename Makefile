@@ -6,7 +6,10 @@ SRC = main.c \
 	  	read.c \
 	  	tokenize.c \
 	  	launch.c \
-	  	execute.c
+	  	execute.c \
+	  	hashmap.c \
+	  	util.c \
+	  	env.c
 
 
 SRCDIR = ./src

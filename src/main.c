@@ -14,9 +14,13 @@
 
 int		main(int ac, char **av)
 {
+	t_hashmap	*msh_env;
 	(void)ac;
 	(void)av;
 
-	msh_loop();
+	msh_load_env(&msh_env);
+
+	
+	//msh_loop();
 	return (EXIT_SUCCESS);
 }

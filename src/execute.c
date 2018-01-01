@@ -13,12 +13,20 @@
 #include "msh.h"
 
 int		msh_cd(char **args);
+//int		msh_echo(char **args);
+//int		msh_setenv(const char *name, const char *value, int replace);
+//int		msh_unsetenv(const char *name);
+//int		msh_env();
 int		msh_help(char **args);
 int		msh_exit(char **args);
 
 char	*builtin_str[] =
 {
 	"cd",
+//	"echo",
+//	"setenv",
+//	"unsetenv",
+//	"env",
 	"help",
 	"exit"
 };
@@ -26,6 +34,10 @@ char	*builtin_str[] =
 int		(*builtin_func[]) (char**) =
 {
 	&msh_cd,
+//	&msh_echo,
+//	&msh_setenv,
+//	&msh_unsetenv,
+//	&msh_env,
 	&msh_help,
 	&msh_exit
 };
@@ -47,6 +59,33 @@ int		msh_cd(char **args)
 	return (1);
 }
 
+/*
+int		msh_echo(char **args)
+{
+
+
+}
+
+int		msh_setenv(t_hashmap *msh_env, const char *key, const char *value, int replace)
+{
+	if (!replace)
+		return (0);
+	hm_insert(msh_env, key, value);
+	return (0);
+}
+
+int		msh_unsetenv(const char *name)
+{
+
+
+}
+
+int		msh_env(t_hashmap *msh_env)
+{
+	
+
+}
+*/
 int		msh_help(char **args)
 {
 	int	i;
