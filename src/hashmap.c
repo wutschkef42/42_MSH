@@ -20,7 +20,7 @@ t_hashmap	*hm_new_map(int size_table)
 
 	if (size_table < 1 || !(hashmap = malloc(sizeof(t_hashmap))))
 		return (NULL);
-	if (!(hashmap->table = malloc(sizeof(t_entry*) * size_table)))
+	if (!(hashmap->table = malloc(sizeof(t_hm_entry*) * size_table)))
 		return (NULL);
 	i = 0;
 	while (i < size_table)
@@ -51,11 +51,11 @@ int			hm_hash(t_hashmap *hashmap, char *key)
 }
 
 /* Create a key - value pair */
-t_entry		*hm_new_entry(char *key, char *value)
+t_hm_entry		*hm_new_entry(char *key, char *value)
 {
-	t_entry		*new;
+	t_hm_entry		*new;
 
-	if (!(new = malloc(sizeof(t_entry))))
+	if (!(new = malloc(sizeof(t_hm_entry))))
 		return (NULL);
 	if (!(new->key = ft_strdup(key)))
 		return (NULL);
@@ -69,9 +69,9 @@ t_entry		*hm_new_entry(char *key, char *value)
 void		hm_insert(t_hashmap *hashmap, char *key, char *value)
 {
 	int			bin;
-	t_entry		*new;
-	t_entry		*next;
-	t_entry		*last;
+	t_hm_entry		*new;
+	t_hm_entry		*next;
+	t_hm_entry		*last;
 
 	bin = hm_hash(hashmap, key);
 	next = hashmap->table[bin];
@@ -115,7 +115,7 @@ void		hm_insert(t_hashmap *hashmap, char *key, char *value)
 char	*hm_lookup(t_hashmap *hashmap, char *key)
 {
 	int		bin;
-	t_entry	*pair;
+	t_hm_entry	*pair;
 
 	bin = hm_hash(hashmap, key);
 

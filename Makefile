@@ -8,6 +8,7 @@ SRC = main.c \
 	  	launch.c \
 	  	execute.c \
 	  	hashmap.c \
+	  	doubly_linked_list.c \
 	  	util.c \
 	  	env.c
 
