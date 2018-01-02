@@ -13,6 +13,8 @@
 #include "libft.h"
 #include "doubly_linked_list.h"
 
+#include <stdio.h>
+
 void		dll_insert_head(t_dll_node **head, t_dll_node *new)
 {
 	if (!head)
@@ -45,26 +47,86 @@ void		dll_insert_tail(t_dll_node **head, t_dll_node *new)
 	new->prev = last;
 }
 
-t_dll_node	*dll_new_node(char *data)
+t_dll_node	*dll_new_node(void *data, size_t data_size)
 {
 	t_dll_node	*new;
 
 	if (!(new = malloc(sizeof(t_dll_node))))
 		return (NULL);
-	if (!(new->data = malloc(sizeof(char) * ft_strlen(data))))
+	if (!(new->data = malloc(sizeof(char) * data_size + 1)))
 		return (NULL);
-	ft_strcpy(new->data, data);
+	ft_memcpy(new->data, data, data_size + 1);
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
 }
 
+void		dll_delete_node(t_dll_node **head, void	*key, size_t keysize, int (*cmp)(const void*, const void*, size_t))
+{
+	t_dll_node	*node;
+
+	if (!head)
+		return ;
+	if (!*head)
+		return ;
+	node = *head;
+	
+	if (cmp(key, node->data, keysize) == 0)
+		return (dll_delete_head(head));
+	while (node)
+	{
+		if (cmp(key, node->data, keysize) == 0)
+		{
+			if (node->prev)
+				node->prev->next = node->next;
+			if (node->next)
+				node->next->prev = node->prev;
+			free(node->data);
+			node->data = NULL;
+			free(node);
+			node->prev = NULL;
+		}
+		node = node->next;
+	}
+}
+
+void		dll_delete_head(t_dll_node **head)
+{
+	t_dll_node	*node;
+	if (!head)
+		return ;
+	if (!(*head))
+		return ;
+	node = *head;
+	*head = node->next;
+
+	free(node->data);
+	node->data = NULL;
+	free(node);
+	node->prev = NULL;
+	node->next = NULL;
+}
+
+void		dll_delete_list(t_dll_node **head)
+{
+	if (!head || !(*head))
+		return ;
+	while (*head)
+	{
+		dll_delete_head(head);
+		*head = (*head)->next;
+	}
+}
+
+
 void		dll_print_forward(t_dll_node *head)
 {
 	ft_printf("DLL Forward:\n");
+	if (!head)
+		return ;
 	while (head)
 	{
-		ft_printf("%s\n", head->data);
+		ft_printf("%s\n", (char *)(head->data));
 		head = head->next;
 	}
 	ft_printf("\n");
@@ -73,11 +135,13 @@ void		dll_print_forward(t_dll_node *head)
 void		dll_print_backward(t_dll_node *head)
 {
 	ft_printf("DLL Backward:\n");
+	if (!head)
+		return ;
 	while (head->next)
 		head = head->next;
 	while (head)
 	{
-		ft_printf("%s\n", head->data);
+		ft_printf("%s\n", (char *)(head->data));
 		head = head->prev;
 	}
 	ft_printf("\n");

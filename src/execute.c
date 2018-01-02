@@ -13,17 +13,17 @@
 #include "msh.h"
 
 int		msh_cd(char **args);
-//int		msh_echo(char **args);
+int		msh_echo(char **args);
 //int		msh_setenv(const char *name, const char *value, int replace);
 //int		msh_unsetenv(const char *name);
-//int		msh_env();
+int		msh_env();
 int		msh_help(char **args);
 int		msh_exit(char **args);
 
 char	*builtin_str[] =
 {
 	"cd",
-//	"echo",
+	"echo",
 //	"setenv",
 //	"unsetenv",
 //	"env",
@@ -34,7 +34,7 @@ char	*builtin_str[] =
 int		(*builtin_func[]) (char**) =
 {
 	&msh_cd,
-//	&msh_echo,
+	&msh_echo,
 //	&msh_setenv,
 //	&msh_unsetenv,
 //	&msh_env,
@@ -59,33 +59,63 @@ int		msh_cd(char **args)
 	return (1);
 }
 
-/*
 int		msh_echo(char **args)
 {
+	int	i;
+	int	j;
 
-
+	i = 1;
+	while (args[i])
+	{
+		j = 0;
+		while (args[i][j])
+		{
+			if (args[i][j] != '"')
+				write(1, &(args[i][j]), 1);	
+			j++;
+		}
+		if (args[i + 1])
+			write(1, " ", 1);
+		i++;
+	}
+	write(1, "\n", 1);
+	return (1);
 }
 
-int		msh_setenv(t_hashmap *msh_env, const char *key, const char *value, int replace)
+
+int		msh_set_env(t_hashmap *msh_env, const char *key, const char *value, int replace)
 {
-	if (!replace)
+	if (!replace && hm_lookup(msh_env, key))
 		return (0);
 	hm_insert(msh_env, key, value);
 	return (0);
 }
 
-int		msh_unsetenv(const char *name)
-{
 
+int		msh_unset_env(t_hashmap *msh_env, const char *key)
+{
+	hm_delete(msh_env, key);
+	return (0);
 
 }
 
-int		msh_env(t_hashmap *msh_env)
+int		msh_get_env(t_hashmap *msh_env)
 {
-	
+	t_dll_node	*head;
+	char		*key;
+	char		*value;
 
+	head = *(msh_env->keychain);
+	while (head)
+	{
+		key = (char*)head->data;
+		value = hm_lookup(msh_env, key);
+		ft_printf("%s=%s\n", key, value);
+		head = head->next;
+	}	
+	return (0);
 }
-*/
+
 int		msh_help(char **args)
 {
 	int	i;

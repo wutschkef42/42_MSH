@@ -5,7 +5,7 @@
 extern char	**environ;
 
 
-/*
+
 static int	string2hashmap(t_hashmap *hashmap, const char *envi)
 {
 	char	*key;
@@ -32,4 +32,4 @@ int			msh_load_env(t_hashmap **msh_env)
 	}
 	return (0);
 }
-*/
+

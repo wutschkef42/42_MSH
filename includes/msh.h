@@ -21,6 +21,7 @@
 
 # include "libft.h"
 # include "hashmap.h"
+# include "doubly_linked_list.h"
 
 # include <sys/wait.h>		// waitpid() and associated macros
 # include <unistd.h>		// chdir(), fork(), exec(), pid_t, char **environ
@@ -40,7 +41,10 @@ int		msh_help(char **av);
 int		msh_exit(char **av);
 
 int		msh_load_env(t_hashmap **msh_env);	
-
+int		msh_get_env(t_hashmap *msh_env);
+int		msh_set_env(t_hashmap *msh_env, const char *key, const char *value, int replace);
+int		msh_unset_env(t_hashmap *hashmap, const char *key);
 char	*ft_strndup(const char *s, size_t n);
+
 
 #endif
