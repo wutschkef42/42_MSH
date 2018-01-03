@@ -139,7 +139,7 @@ int		msh_help(char **args)
 int		msh_exit(char **args)
 {
 	(void)args;
-	return (0);
+	return(0);
 }
 
 int		msh_execute(char **args)

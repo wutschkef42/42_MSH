@@ -28,13 +28,18 @@ int		msh_launch(char **args)
 	}
 	else if (pid < 0)
 		perror("msh");
-	else
+	wpid = 1;
+	status = 1;
+	wait(&pid);
+	/*else
 	{
+		ft_printf("parent process\n");
 		status = 1;
 		while (!WIFEXITED(status) && !WIFSIGNALED(status))
 		{
 			wpid = waitpid(pid, &status, WUNTRACED);
 		}
 	}
+	*/
 	return (1);
 }

@@ -28,5 +28,6 @@ void	msh_loop(void)
 
 		free(line);
 		free(args);
+
 	}
 }

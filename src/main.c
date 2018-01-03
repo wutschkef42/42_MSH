@@ -24,13 +24,14 @@ int		main(int ac, char **av)
 	(void)av;
 
 	msh_load_env(&msh_env);
-	msh_set_env(msh_env, "FELIX", "AWESOME", 1);
-	msh_set_env(msh_env, "FELIX", "YEAH", 0);
-	msh_set_env(msh_env, "MIKE", "OK", 0);
-	msh_set_env(msh_env, "PHILIPPE", "GREAT", 1);
-	msh_unset_env(msh_env, "FELIX");
-	msh_unset_env(msh_env, "MIKE");
-	msh_unset_env(msh_env, "PHILIPPE");
+//	msh_set_env(msh_env, "FELIX", "AWESOME", 1);
+//	msh_set_env(msh_env, "FELIX", "YEAH", 0);
+//	msh_set_env(msh_env, "MIKE", "OK", 0);
+//	msh_set_env(msh_env, "PHILIPPE", "GREAT", 1);
+//	msh_unset_env(msh_env, "FELIX");
+//	msh_unset_env(msh_env, "MIKE");
+//	msh_unset_env(msh_env, "PHILIPPE");
+//	msh_get_env(msh_env);
 	msh_get_env(msh_env);
 	msh_loop();
 
