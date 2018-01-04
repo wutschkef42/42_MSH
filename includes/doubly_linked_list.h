@@ -22,5 +22,6 @@ void					dll_print_backward(t_dll_node *head);
 void					dll_delete_node(t_dll_node **head, void	*key, size_t keysize, int (*cmp)(const void*, const void*, size_t n));
 void					dll_delete_head(t_dll_node **head);
 void					dll_delete_list(t_dll_node **head);
+size_t					dll_size(t_dll_node *head);
 
 #endif

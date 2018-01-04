@@ -5,11 +5,15 @@ SRC = main.c \
 	  	loop.c \
 	  	read.c \
 	  	tokenize.c \
+	  	token_parse.c \
 	  	launch.c \
+	  	link_executable.c \
 	  	execute.c \
-	  	hashmap.c \
-	  	doubly_linked_list.c \
+	  	data_structures/hashmap.c \
+	  	data_structures/doubly_linked_list.c \
+	  	data_structures/serialize.c \
 	  	util.c \
+	  	freedom.c \
 	  	env.c
 
 
@@ -29,7 +33,7 @@ FLAGS =	-Wall -Werror -Wextra -g
 all: obj $(FTLIB) $(NAME)
 
 obj:
-	mkdir -p $(OBJDIR)
+	mkdir -p $(OBJDIR)/data_structures
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(FLAGS) $(FTINC) -I $(INCDIR) -o $@ -c $<

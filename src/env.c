@@ -2,10 +2,6 @@
 #include "msh.h"
 #include "hashmap.h"
 
-extern char	**environ;
-
-
-
 static int	string2hashmap(t_hashmap *hashmap, const char *envi)
 {
 	char	*key;
@@ -19,15 +15,15 @@ static int	string2hashmap(t_hashmap *hashmap, const char *envi)
 	return (0);
 }
 
-int			msh_load_env(t_hashmap **msh_env)
+int			msh_load_env(t_hashmap **msh_env, char **env)
 {
 	int			i;
 
 	*msh_env = hm_new_map(MSH_ENV_BUFSIZE);
 	i = 0;
-	while (environ[i])
+	while (env[i])
 	{
-		string2hashmap(*msh_env, environ[i]);
+		string2hashmap(*msh_env, env[i]);
 		i++;
 	}
 	return (0);

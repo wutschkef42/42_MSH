@@ -12,18 +12,26 @@
 
 #include "msh.h"
 
-int		msh_launch(char **args)
+int		msh_launch(char **args, t_hashmap *msh_env)
 {
 	pid_t	pid;
 	pid_t	wpid;
 	int		status;
+	char	**env_serial;
+	char	*link_executable;
 
 	pid = fork();
 	if (pid == 0)
 	{
+		if (!(link_executable = seek_executable(split_path(msh_env), args[0])))
+		{
+			ft_printf("cannot find executable\n");
+			return (1);
+		}
 		// Child process
-		if (execvp(args[0], args) == -1)
-			perror("msh");
+		env_serial = hm_serialize(msh_env);	
+		if (execve(link_executable, args, env_serial) == -1)
+			ft_printf("cannot find executable\n");
 		exit (EXIT_FAILURE);
 	}
 	else if (pid < 0)
@@ -31,6 +39,7 @@ int		msh_launch(char **args)
 	wpid = 1;
 	status = 1;
 	wait(&pid);
+	//free(env_serial);
 	/*else
 	{
 		ft_printf("parent process\n");

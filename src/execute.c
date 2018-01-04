@@ -88,14 +88,14 @@ int		msh_set_env(t_hashmap *msh_env, const char *key, const char *value, int rep
 	if (!replace && hm_lookup(msh_env, key))
 		return (0);
 	hm_insert(msh_env, key, value);
-	return (0);
+	return (1);
 }
 
 
 int		msh_unset_env(t_hashmap *msh_env, const char *key)
 {
 	hm_delete(msh_env, key);
-	return (0);
+	return (1);
 
 }
 
@@ -113,7 +113,7 @@ int		msh_get_env(t_hashmap *msh_env)
 		ft_printf("%s=%s\n", key, value);
 		head = head->next;
 	}	
-	return (0);
+	return (1);
 }
 
 int		msh_help(char **args)
@@ -142,7 +142,13 @@ int		msh_exit(char **args)
 	return(0);
 }
 
-int		msh_execute(char **args)
+int		msh_set_env_usage()
+{
+	ft_printf("setenv [NAME][VALUE]\n");
+	return (1);
+}
+
+int		msh_execute(char **args, t_hashmap *msh_env)
 {
 	int	i;
 	
@@ -150,11 +156,16 @@ int		msh_execute(char **args)
 		return (1);
 
 	i = 0;
-	while (i < msh_num_builtins())
-	{
-		if (ft_strcmp(args[0], builtin_str[i]) == 0)
-			return ((*builtin_func[i])(args));
-		i++;
-	}
-	return (msh_launch(args));
+	if (ft_strcmp(args[0], "echo") == 0)
+		return (msh_echo(args));
+	if (ft_strcmp(args[0], "setenv") == 0)
+		return (args[1] && args[2] ? msh_set_env(msh_env, args[1], args[2], 1) : msh_set_env_usage());
+	if (ft_strcmp(args[0], "unsetenv") == 0)
+		return (msh_unset_env(msh_env, args[1]));
+	if (ft_strcmp(args[0], "env") == 0)
+		return (msh_get_env(msh_env));
+	if (ft_strcmp(args[0], "exit") == 0)
+		return (msh_exit(args));
+
+	return (msh_launch(args, msh_env));
 }

@@ -28,19 +28,24 @@
 # include <stdlib.h>		// malloc(), realloc(), free(), exit(), execvp(), EXIT_SUCCESS, EXIT_FAILURE
 # include <stdio.h>			// stderr, getcher(), perror()
 # include <string.h>		// strtok()
-		
-void	msh_loop(void);						// LOOOP
-char	*msh_read_line(void);				// READ
-char	**msh_split_line(char *line);		// PARSE
-int		msh_launch(char **args);			// INIT
-int		msh_execute(char **args);			// EVAL
 
-int		msh_num_builtins();					// BUILT-INS
+void	msh_loop(t_hashmap *msh_env);					// LOOOP
+char	*msh_read_line(void);							// READ
+char	**msh_split_line(char *line);					// PARSE
+int		msh_launch(char **args, t_hashmap *msh_env);	// INIT
+int		msh_execute(char **args, t_hashmap *msh_env);	// EVAL
+
+char	*seek_executable(char **paths, char *name);
+char	**split_path(t_hashmap *msh_env);
+char	*is_path(char *name);
+char	**expand_env_vars(char **args, t_hashmap *msh_env);
+
+int		msh_num_builtins();								// BUILT-INS
 int		msh_cd(char **av);
 int		msh_help(char **av);
 int		msh_exit(char **av);
 
-int		msh_load_env(t_hashmap **msh_env);	
+int		msh_load_env(t_hashmap **msh_env, char **env);
 int		msh_get_env(t_hashmap *msh_env);
 int		msh_set_env(t_hashmap *msh_env, const char *key, const char *value, int replace);
 int		msh_unset_env(t_hashmap *hashmap, const char *key);

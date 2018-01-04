@@ -12,7 +12,7 @@
 
 #include "msh.h"
 
-void	msh_loop(void)
+void	msh_loop(t_hashmap *msh_env)
 {
 	char	*line;
 	char	**args;
@@ -24,10 +24,9 @@ void	msh_loop(void)
 		printf("$ ");
 		line = msh_read_line();
 		args = msh_split_line(line);
-		status = msh_execute(args);
-
+		args = expand_env_vars(args, msh_env);
+		status = msh_execute(args, msh_env);
 		free(line);
 		free(args);
-
 	}
 }

@@ -118,7 +118,6 @@ void		dll_delete_list(t_dll_node **head)
 	}
 }
 
-
 void		dll_print_forward(t_dll_node *head)
 {
 	ft_printf("DLL Forward:\n");
@@ -145,4 +144,17 @@ void		dll_print_backward(t_dll_node *head)
 		head = head->prev;
 	}
 	ft_printf("\n");
+}
+
+size_t		dll_size(t_dll_node *head)
+{
+	size_t	size;
+
+	size = 0;
+	while (head)
+	{
+		size++;
+		head = head->next;
+	}
+	return (size);
 }

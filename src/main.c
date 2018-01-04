@@ -14,7 +14,7 @@
 
 extern	char **environ;
 
-int		main(int ac, char **av)
+int		main(int ac, char **av, char **env)
 {
 
 	//t_dll_node	*dll;
@@ -23,7 +23,9 @@ int		main(int ac, char **av)
 	(void)ac;
 	(void)av;
 
-	msh_load_env(&msh_env);
+	msh_load_env(&msh_env, env);
+	msh_loop(msh_env);
+
 //	msh_set_env(msh_env, "FELIX", "AWESOME", 1);
 //	msh_set_env(msh_env, "FELIX", "YEAH", 0);
 //	msh_set_env(msh_env, "MIKE", "OK", 0);
@@ -32,8 +34,9 @@ int		main(int ac, char **av)
 //	msh_unset_env(msh_env, "MIKE");
 //	msh_unset_env(msh_env, "PHILIPPE");
 //	msh_get_env(msh_env);
-	msh_get_env(msh_env);
-	msh_loop();
+	//msh_get_env(msh_env);
+	//msh_loop(msh_env);
+
 
 	/*
 	int count = 0;
