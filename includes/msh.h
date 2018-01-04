@@ -40,15 +40,17 @@ char	**split_path(t_hashmap *msh_env);
 char	*is_path(char *name);
 char	**expand_env_vars(char **args, t_hashmap *msh_env);
 
-int		msh_num_builtins();								// BUILT-INS
 int		msh_cd(char **av);
 int		msh_help(char **av);
+int		msh_echo(char **av);
 int		msh_exit(char **av);
 
 int		msh_load_env(t_hashmap **msh_env, char **env);
 int		msh_get_env(t_hashmap *msh_env);
 int		msh_set_env(t_hashmap *msh_env, const char *key, const char *value, int replace);
 int		msh_unset_env(t_hashmap *hashmap, const char *key);
+int		msh_set_env_usage();
+
 char	*ft_strndup(const char *s, size_t n);
 
 

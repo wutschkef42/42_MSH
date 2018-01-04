@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "msh.h"
+#include "get_next_line.h"
 
 void	msh_loop(t_hashmap *msh_env)
 {
@@ -19,9 +20,10 @@ void	msh_loop(t_hashmap *msh_env)
 	int		status;
 
 	status = 1;
+	
 	while (status)
 	{
-		printf("$ ");
+		ft_printf("$> ");
 		line = msh_read_line();
 		args = msh_split_line(line);
 		args = expand_env_vars(args, msh_env);

@@ -1,5 +1,5 @@
 
-NAME = msh
+NAME = minishell
 
 SRC = main.c \
 	  	loop.c \
@@ -9,6 +9,11 @@ SRC = main.c \
 	  	launch.c \
 	  	link_executable.c \
 	  	execute.c \
+	  	builtins/cd.c \
+	  	builtins/echo.c \
+	  	builtins/env_api.c \
+	  	builtins/exit.c \
+	  	builtins/help.c \
 	  	data_structures/hashmap.c \
 	  	data_structures/doubly_linked_list.c \
 	  	data_structures/serialize.c \
@@ -34,6 +39,7 @@ all: obj $(FTLIB) $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)/data_structures
+	mkdir -p $(OBJDIR)/builtins
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(FLAGS) $(FTINC) -I $(INCDIR) -o $@ -c $<

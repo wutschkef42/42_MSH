@@ -1,8 +1,10 @@
 
+
+notes
 ._*
 *.a
 *.o
 a.out
-msh
+minishell
 .DS_Store
 

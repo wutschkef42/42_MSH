@@ -25,13 +25,13 @@ int		msh_launch(char **args, t_hashmap *msh_env)
 	{
 		if (!(link_executable = seek_executable(split_path(msh_env), args[0])))
 		{
-			ft_printf("cannot find executable\n");
-			return (1);
+			ft_printf("(1) cannot find executable\n");
+			return (0);
 		}
 		// Child process
-		env_serial = hm_serialize(msh_env);	
+		env_serial = hm_serialize(msh_env);
 		if (execve(link_executable, args, env_serial) == -1)
-			ft_printf("cannot find executable\n");
+			ft_printf("(2) cannot find executable\n");
 		exit (EXIT_FAILURE);
 	}
 	else if (pid < 0)
