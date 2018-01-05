@@ -6,7 +6,7 @@
 /*   By: wutschkef <felix.wutschke@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 01:37:42 by wutschkef         #+#    #+#             */
-/*   Updated: 2017/12/31 01:41:59 by wutschkef        ###   ########.fr       */
+/*   Updated: 2018/01/04 20:17:28 by wutschkef        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ char		**msh_tokenize(char const *s, char *delims)
 	int		k;
 	char	**s2;
 
-	if (!s || !(s2 = (char **)malloc(sizeof(*s2) * (msh_count_words(s, delims) + 1))))
+	if (!s || !(s2 = (char **)malloc(sizeof(*s2) *
+						(msh_count_words(s, delims) + 1))))
 		return (NULL);
 	i = -1;
 	j = 0;

@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hashmap.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wutschkef <felix.wutschke@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/04 20:59:18 by wutschkef         #+#    #+#             */
+/*   Updated: 2018/01/04 21:05:55 by wutschkef        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef H_HASHMAP
-# define H_HASHMAP
+#ifndef HASHMAP_H
+# define HASHMAP_H
 
 # include <stdlib.h>
 # include <limits.h>
@@ -27,7 +38,8 @@ typedef struct			s_hashmap
 t_hashmap				*hm_new_map(int size);
 int						hm_hash(t_hashmap *hashmap, const char *key);
 t_hm_entry				*hm_new_entry(const char *key, const char *value);
-void					hm_insert(t_hashmap *hashmap, const char *key, const char *value);
+void					hm_insert(t_hashmap *hashmap, const char *key,
+						const char *value);
 char					*hm_lookup(t_hashmap *hashmap, const char *key);
 void					hm_delete(t_hashmap *hashmap, const char *key);
 char					**hm_serialize(t_hashmap *hashmap);

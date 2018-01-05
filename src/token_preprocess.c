@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_preprocess.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wutschkef <felix.wutschke@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/04 20:26:08 by wutschkef         #+#    #+#             */
+/*   Updated: 2018/01/04 20:28:29 by wutschkef        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "msh.h"
 
@@ -15,7 +26,7 @@ static char	**expand_env_vars(char **args, t_hashmap *msh_env)
 	return (args);
 }
 
-char	*strip_quotes(const char *s)
+char		*strip_quotes(const char *s)
 {
 	char	*no_quotes;
 
@@ -26,7 +37,7 @@ char	*strip_quotes(const char *s)
 	return (no_quotes);
 }
 
-char	**token_preprocess(char **args, t_hashmap *msh_env)
+char		**token_preprocess(char **args, t_hashmap *msh_env)
 {
 	args = expand_env_vars(args, msh_env);
 	return (args);

@@ -6,7 +6,7 @@
 /*   By: wutschkef <felix.wutschke@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/31 01:38:16 by wutschkef         #+#    #+#             */
-/*   Updated: 2017/12/31 01:58:22 by wutschkef        ###   ########.fr       */
+/*   Updated: 2018/01/04 20:27:57 by wutschkef        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	msh_loop(t_hashmap *msh_env)
 	int		status;
 
 	status = 1;
-	
 	while (status)
 	{
 		ft_printf("$> ");

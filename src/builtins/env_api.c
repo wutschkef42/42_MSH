@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_api.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wutschkef <felix.wutschke@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/04 20:05:15 by wutschkef         #+#    #+#             */
+/*   Updated: 2018/01/04 20:07:21 by wutschkef        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "msh.h"
 
-int		msh_set_env(t_hashmap *msh_env, const char *key, const char *value, int replace)
+int		msh_set_env(t_hashmap *msh_env, const char *key,
+			const char *value, int replace)
 {
 	if (!replace && hm_lookup(msh_env, key))
 		return (0);
@@ -11,12 +23,10 @@ int		msh_set_env(t_hashmap *msh_env, const char *key, const char *value, int rep
 	return (1);
 }
 
-
 int		msh_unset_env(t_hashmap *msh_env, const char *key)
 {
 	hm_delete(msh_env, key);
 	return (1);
-
 }
 
 int		msh_get_env(t_hashmap *msh_env)
@@ -32,11 +42,11 @@ int		msh_get_env(t_hashmap *msh_env)
 		value = hm_lookup(msh_env, key);
 		ft_printf("%s=%s\n", key, value);
 		head = head->next;
-	}	
+	}
 	return (1);
 }
 
-int		msh_set_env_usage()
+int		msh_set_env_usage(void)
 {
 	ft_printf("setenv [NAME][VALUE]\n");
 	return (1);
