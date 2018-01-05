@@ -43,5 +43,6 @@ void					hm_insert(t_hashmap *hashmap, const char *key,
 char					*hm_lookup(t_hashmap *hashmap, const char *key);
 void					hm_delete(t_hashmap *hashmap, const char *key);
 char					**hm_serialize(t_hashmap *hashmap);
+void					hm_free_entry(t_hm_entry *entry);
 
 #endif

@@ -54,3 +54,10 @@ void	dll_delete_list(t_dll_node **head)
 		*head = (*head)->next;
 	}
 }
+
+void	hm_free_entry(t_hm_entry *entry)
+{
+	free(entry->key->data);
+	free(entry->key);
+	free(entry);
+}

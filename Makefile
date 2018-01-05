@@ -16,6 +16,7 @@ SRC = main.c \
 	  	builtins/help.c \
 	  	data_structures/hashmap.c \
 	  	data_structures/hashmap_2.c \
+	  	data_structures/hashmap_insert.c \
 	  	data_structures/doubly_linked_list.c \
 	  	data_structures/serialize.c \
 	  	util.c \

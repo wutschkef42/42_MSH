@@ -22,8 +22,12 @@ int		msh_execute(char **args, t_hashmap *msh_env)
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (msh_echo(args));
 	if (ft_strcmp(args[0], "setenv") == 0)
-		return (args[1] && args[2] ?
-		msh_set_env(msh_env, args[1], args[2], 1) : msh_set_env_usage());
+	{
+		if (args[1] && args[2])
+			return (msh_set_env(msh_env, args[1], args[2], 1));
+		else
+			return (msh_set_env_usage());
+	}
 	if (ft_strcmp(args[0], "unsetenv") == 0)
 		return (msh_unset_env(msh_env, args[1]));
 	if (ft_strcmp(args[0], "env") == 0)

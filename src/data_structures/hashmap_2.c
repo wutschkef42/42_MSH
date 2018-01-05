@@ -28,6 +28,39 @@ char	*hm_lookup(t_hashmap *hashmap, const char *key)
 	return (pair->value);
 }
 
+void	relink_keychain(t_hm_entry *pair)
+{
+	if (pair->key->prev)
+		pair->key->prev->next = pair->key->next;
+	if (pair->key->next)
+		pair->key->next->prev = pair->key->prev;
+}
+
+void	find_pair(t_hm_entry **prev, t_hm_entry **pair, const char *key)
+{
+	while (*pair != NULL && (*pair)->key != NULL &&
+			ft_strncmp(key, (char*)((*pair)->key->data), ft_strlen(key)) > 0)
+	{
+		(*prev) = (*pair);
+		(*pair) = (*pair)->next;
+	}
+}
+
+int		check_head(int bin, t_hm_entry *pair, t_hashmap *hashmap,
+			const char *key)
+{
+	if (pair != NULL && pair->key != NULL &&
+			ft_strncmp(key, (char*)(pair->key->data), ft_strlen(key)) == 0)
+	{
+		if (ft_strncmp(key, (*(hashmap->keychain))->data, ft_strlen(key)) == 0)
+			*(hashmap->keychain) = (*(hashmap->keychain))->next;
+		relink_keychain(pair);
+		hashmap->table[bin] = pair->next;
+		return (1);
+	}
+	return (0);
+}
+
 void	hm_delete(t_hashmap *hashmap, const char *key)
 {
 	int			bin;
@@ -37,38 +70,18 @@ void	hm_delete(t_hashmap *hashmap, const char *key)
 	bin = hm_hash(hashmap, key);
 	prev = NULL;
 	pair = hashmap->table[bin];
-	if (pair != NULL && pair->key != NULL &&
-			ft_strncmp(key, (char*)(pair->key->data), ft_strlen(key)) == 0)
+	if (check_head(bin, pair, hashmap, key))
 	{
-		if (ft_strncmp(key, (*(hashmap->keychain))->data, ft_strlen(key)) == 0)
-			*(hashmap->keychain) = (*(hashmap->keychain))->next;
-		if (pair->key->prev)
-			pair->key->prev->next = pair->key->next;
-		if (pair->key->next)
-			pair->key->next->prev = pair->key->prev;
-		hashmap->table[bin] = pair->next;
-		free(pair->key->data);
-		free(pair->key);
-		free(pair);
+		hm_free_entry(pair);
 		return ;
 	}
-	while (pair != NULL && pair->key != NULL &&
-			ft_strncmp(key, (char*)(pair->key->data), ft_strlen(key)) > 0)
-	{
-		prev = pair;
-		pair = pair->next;
-	}
+	find_pair(&prev, &pair, key);
 	if (pair == NULL || pair->key == NULL ||
 			ft_strncmp(key, (char*)(pair->key->data), ft_strlen(key)) != 0)
 		return ;
 	prev->next = pair->next;
 	if (ft_strncmp(key, (*(hashmap->keychain))->data, ft_strlen(key)) == 0)
 		*(hashmap->keychain) = (*(hashmap->keychain))->next;
-	if (pair->key->prev)
-		pair->key->prev->next = pair->key->next;
-	if (pair->key->next)
-		pair->key->next->prev = pair->key->prev;
-	free(pair->key->data);
-	free(pair->key);
-	free(pair);
+	relink_keychain(pair);
+	hm_free_entry(pair);
 }
