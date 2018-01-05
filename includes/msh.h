@@ -18,6 +18,7 @@
 # define MSH_ENV_BUFSIZE 1024
 # define MSH_TOK_BUFSIZE 64
 # define MSH_TOK_DELIM " \t\r\n\a"
+# define MSH_PWD_BUFSIZE 1000
 
 # include "libft.h"
 # include "hashmap.h"
@@ -41,7 +42,7 @@ char	*strip_quotes(const char *s);
 char	**token_preprocess(char **args, t_hashmap *msh_env);
 
 
-int		msh_cd(char **av);
+int		msh_cd(char **args, t_hashmap *msh_env);
 int		msh_help(char **av);
 int		msh_echo(char **av);
 int		msh_exit(char **av);

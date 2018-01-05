@@ -28,6 +28,8 @@ int		msh_execute(char **args, t_hashmap *msh_env)
 		return (msh_unset_env(msh_env, args[1]));
 	if (ft_strcmp(args[0], "env") == 0)
 		return (msh_get_env(msh_env));
+	if (ft_strcmp(args[0], "cd") == 0)
+		return (msh_cd(args, msh_env));
 	if (ft_strcmp(args[0], "help") == 0)
 		return (msh_help(args));
 	if (ft_strcmp(args[0], "exit") == 0)
