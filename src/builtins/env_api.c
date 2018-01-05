@@ -5,6 +5,8 @@ int		msh_set_env(t_hashmap *msh_env, const char *key, const char *value, int rep
 {
 	if (!replace && hm_lookup(msh_env, key))
 		return (0);
+	if (*value == '"')
+		value = strip_quotes(value);
 	hm_insert(msh_env, key, value);
 	return (1);
 }

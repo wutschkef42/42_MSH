@@ -5,7 +5,7 @@ SRC = main.c \
 	  	loop.c \
 	  	read.c \
 	  	tokenize.c \
-	  	token_parse.c \
+	  	token_preprocess.c \
 	  	launch.c \
 	  	link_executable.c \
 	  	execute.c \

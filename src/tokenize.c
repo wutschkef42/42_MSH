@@ -12,39 +12,64 @@
 
 #include "msh.h"
 
-char	**msh_split_line(char *line)
+static int	msh_count_words(char const *s, char *delims)
 {
-	int		bufsize;
-	char	**tokens;
-	char	*token;
-	int		position;
+	int	count;
+	int	i;
 
-	bufsize = MSH_TOK_BUFSIZE;
-	if (!(tokens = malloc(sizeof(char*) * bufsize)))
+	i = 0;
+	count = 0;
+	while (s[i])
 	{
-		ft_printf("msh: allocation error\n");
-		exit(EXIT_FAILURE);
+		while (ft_strchr(delims, s[i]))
+			i++;
+		if (!ft_strchr(delims, s[i]) && s[i] != '\0')
+			count++;
+		while (!ft_strchr(delims, s[i]) && s[i] != '\0')
+			i++;
 	}
-	position = 0;
-	token = strtok(line, MSH_TOK_DELIM);
-	while (token)
-	{
-		tokens[position] = token;
-		position++;
+	return (count);
+}
 
-		if (position >= bufsize)
-		{
-			bufsize += MSH_TOK_BUFSIZE;
-			tokens = realloc(tokens, bufsize * sizeof(char*));
-			if (!tokens)
-			{
-				ft_printf("msh: allocation error\n");
-				exit(EXIT_FAILURE);
-			}
-		}
-		
-		token = strtok(NULL, MSH_TOK_DELIM);
+static int	msh_word_len(char const *s, char *delims)
+{
+	int	len;
+	int	i;
+
+	len = 0;
+	i = 0;
+	while (ft_strchr(delims, s[i]))
+		i++;
+	while (!ft_strchr(delims, s[i]) && s[i] != '\0')
+	{
+		i++;
+		len++;
 	}
-	tokens[position] = NULL;
-	return (tokens);
+	return (len);
+}
+
+char		**msh_tokenize(char const *s, char *delims)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	**s2;
+
+	if (!s || !(s2 = (char **)malloc(sizeof(*s2) * (msh_count_words(s, delims) + 1))))
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (++i < msh_count_words(s, delims))
+	{
+		k = 0;
+		if (!(s2[i] = ft_strnew(msh_word_len(&s[j], delims) + 1)))
+			s2[i] = NULL;
+		while (ft_strchr(delims, s[j]))
+			j++;
+		while (!ft_strchr(delims, s[j]) && s[j])
+			s2[i][k++] = s[j++];
+		s2[i][k] = '\0';
+	}
+	s2[i] = 0;
+	return (s2);
 }

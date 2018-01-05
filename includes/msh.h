@@ -27,18 +27,19 @@
 # include <unistd.h>		// chdir(), fork(), exec(), pid_t, char **environ
 # include <stdlib.h>		// malloc(), realloc(), free(), exit(), execvp(), EXIT_SUCCESS, EXIT_FAILURE
 # include <stdio.h>			// stderr, getcher(), perror()
-# include <string.h>		// strtok()
 
 void	msh_loop(t_hashmap *msh_env);					// LOOOP
 char	*msh_read_line(void);							// READ
-char	**msh_split_line(char *line);					// PARSE
+char	**msh_tokenize(char const *s, char *delims);	// PARSE
 int		msh_launch(char **args, t_hashmap *msh_env);	// INIT
 int		msh_execute(char **args, t_hashmap *msh_env);	// EVAL
 
 char	*seek_executable(char **paths, char *name);
 char	**split_path(t_hashmap *msh_env);
 char	*is_path(char *name);
-char	**expand_env_vars(char **args, t_hashmap *msh_env);
+char	*strip_quotes(const char *s);
+char	**token_preprocess(char **args, t_hashmap *msh_env);
+
 
 int		msh_cd(char **av);
 int		msh_help(char **av);

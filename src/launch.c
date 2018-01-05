@@ -15,40 +15,30 @@
 int		msh_launch(char **args, t_hashmap *msh_env)
 {
 	pid_t	pid;
-	pid_t	wpid;
-	int		status;
 	char	**env_serial;
+	char	**paths;
 	char	*link_executable;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		if (!(link_executable = seek_executable(split_path(msh_env), args[0])))
+		if (!(paths = split_path(msh_env)))
 		{
-			ft_printf("(1) cannot find executable\n");
+			ft_printf("msh: PATH is empty. Set: 'setenv PATH [path_1:..:path_n]'\n");
 			return (0);
 		}
-		// Child process
+		if (!(link_executable = seek_executable(paths, args[0])))
+		{
+			ft_printf("msh: command not found: %s\n", args[0]);
+			return (0);
+		}
 		env_serial = hm_serialize(msh_env);
 		if (execve(link_executable, args, env_serial) == -1)
-			ft_printf("(2) cannot find executable\n");
+			ft_printf("msh: error loading executable\n");
 		exit (EXIT_FAILURE);
 	}
 	else if (pid < 0)
 		perror("msh");
-	wpid = 1;
-	status = 1;
 	wait(&pid);
-	//free(env_serial);
-	/*else
-	{
-		ft_printf("parent process\n");
-		status = 1;
-		while (!WIFEXITED(status) && !WIFSIGNALED(status))
-		{
-			wpid = waitpid(pid, &status, WUNTRACED);
-		}
-	}
-	*/
 	return (1);
 }
